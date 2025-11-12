@@ -9,7 +9,6 @@ const createUserModel = (sequelize) => {
     },
     role_id: {
       type: DataTypes.UUID,
-      // allowNull: false,
     },
     name: {
       type: DataTypes.STRING,
@@ -26,10 +25,10 @@ const createUserModel = (sequelize) => {
       allowNull: false,
     },
     role: {
-        type: DataTypes.ENUM("user", "admin"), 
-        allowNull: false,
-        defaultValue: "user", 
-      },
+      type: DataTypes.ENUM("user", "admin"),
+      allowNull: false,
+      defaultValue: "user",
+    },
     refreshToken: {
       type: DataTypes.TEXT,
       allowNull: true,
@@ -49,11 +48,14 @@ const createUserModel = (sequelize) => {
   });
 
   User.associate = (models) => {
-    User.belongsTo(models.Role, { 
-  foreignKey: "role_id", 
-  as: "userRole"
-});
-    User.hasMany(models.Transaction, { foreignKey: "user_id", onDelete: "CASCADE" });
+    User.belongsTo(models.Role, {
+      foreignKey: "role_id",
+      as: "userRole",
+    });
+    User.hasMany(models.Transaction, {
+      foreignKey: "user_id",
+      onDelete: "CASCADE",
+    });
   };
 
   return User;
