@@ -24,24 +24,19 @@ const createUserModel = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    role: {
-      type: DataTypes.ENUM("user", "admin"),
-      allowNull: false,
-      defaultValue: "user",
-    },
     refreshToken: {
       type: DataTypes.TEXT,
       allowNull: true,
     },
-    created_at: {
+    createdAt: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
-    updated_at: {
+    updatedAt: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
-    deleted_at: {
+    deletedAt: {
       type: DataTypes.DATE,
       allowNull: true,
     },

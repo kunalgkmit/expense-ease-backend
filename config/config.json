@@ -1,0 +1,20 @@
+{
+  "development": {
+    "username": "kunal",
+    "password": "root",
+    "database": "expense_ease",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "kunal",
+    "password": "root",
+    "database": "expense_ease",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "use_env_variable": "DATABASE_URL",
+    "dialect": "postgres"
+  }
+}
