@@ -19,19 +19,19 @@ const createTransactionModel = (sequelize) => {
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
-    occurred_at: {
+    occurredAt: {
       type: DataTypes.DATEONLY,
       defaultValue: DataTypes.NOW,
     },
-    created_at: {
+    createdAt: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
-    updated_at: {
+    updatedAt: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
-    deleted_at: {
+    deletedAt: {
       type: DataTypes.DATE,
       allowNull: true,
     },
