@@ -2,7 +2,7 @@ import db from "../models/index.js";
 import express from "express";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { generateAccessToken, generateRefreshToken } from "./auth/auth.js";
+import { generateAccessToken, generateRefreshToken } from "./auth/authController.js";
 import { response } from "express";
 
 const { User } = db;
