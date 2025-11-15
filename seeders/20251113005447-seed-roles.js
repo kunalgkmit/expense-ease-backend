@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 export async function up(queryInterface) {
   await queryInterface.bulkInsert("roles", [
     {

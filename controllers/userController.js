@@ -21,6 +21,7 @@ export const register = async (req, res) => {
       name,
       email,
       password: hashedPass,
+      role_id: process.env.DEFAULT_USER_ID,
     });
 
     return res.status(201).json({
@@ -29,6 +30,7 @@ export const register = async (req, res) => {
         id: user.id,
         name: user.name,
         email: user.email,
+        role_id: user.role_id,
       },
     });
   } catch (error) {
@@ -77,6 +79,7 @@ export const login = async (req, res) => {
         email: exist.email,
         accessToken,
         refreshToken,
+        role_id: exist.role_id,
       },
     });
   } catch (error) {
