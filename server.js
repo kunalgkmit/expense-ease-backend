@@ -4,6 +4,7 @@ import cookie from "cookie-parser";
 import cors from "cors";
 import { dbConnection } from "./db/dbconnection.js";
 import router from "./routes/authRoute.js";
+import transactionRoutes from "./routes/transactionRoutes.js";
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use(cookie());
 
 app.use("/api", router);
+app.use("/api/transactions", transactionRoutes);
 
 const PORT = process.env.PORT || 8080;
 

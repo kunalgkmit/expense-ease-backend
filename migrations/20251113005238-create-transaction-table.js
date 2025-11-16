@@ -22,7 +22,7 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.DECIMAL(10, 2),
       allowNull: false,
     },
-    occurred_at: {
+    occurredAt: {
       type: Sequelize.DATEONLY,
       defaultValue: Sequelize.fn("now"),
     },
