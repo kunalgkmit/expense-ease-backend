@@ -4,7 +4,8 @@ import cookie from "cookie-parser";
 import cors from "cors";
 import { dbConnection } from "./db/dbconnection.js";
 import router from "./routes/authRoute.js";
-import transactionRoutes from "./routes/transactionRoutes.js";
+import transactionRoute from "./routes/transactionRoute.js";
+import adminRoute from "./routes/adminRoute.js";
 
 dotenv.config();
 
@@ -22,7 +23,8 @@ app.use(express.json());
 app.use(cookie());
 
 app.use("/api", router);
-app.use("/api/transactions", transactionRoutes);
+app.use("/api/transactions", transactionRoute);
+app.use("/api/admin", adminRoute)
 
 const PORT = process.env.PORT || 8080;
 
