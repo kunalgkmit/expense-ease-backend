@@ -105,7 +105,6 @@ export const getRecent = async (req, res) => {
         ["createdAt", "created_at"],
       ],
       order: [["createdAt", "DESC"]],
-      limit: 10,
       raw: true,
     });
 
