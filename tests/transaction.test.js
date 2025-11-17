@@ -33,10 +33,30 @@ describe("Transaction API Tests", () => {
       title: "Food",
       amount: -100,
     });
-
     expect(res.status).toBe(201);
     expect(res.body.title).toBe("Food");
-
     transactionId = res.body.id;
+  });
+
+  test("Create transaction fail (missing amount)", async () => {
+    const res = await request(app).post("/api/transactions").send({
+      user_id: user.id,
+      title: "Invalid Transaction",
+    });
+
+    expect(res.status).toBe(400);
+  });
+
+  test("Get summary success", async () => {
+    const res = await request(app).get(`/api/transactions/summary/${user.id}`);
+    expect(res.status).toBe(200);
+    expect(res.body).toHaveProperty("totalBalance");
+    expect(res.body).toHaveProperty("totalIncome");
+    expect(res.body).toHaveProperty("totalExpense");
+  });
+
+  test("Get summary fail - no user id", async () => {
+    const res = await request(app).get(`/api/transactions/summary/`);
+    expect(res.status).toBe(404);
   });
 });
