@@ -59,4 +59,32 @@ describe("Transaction API Tests", () => {
     const res = await request(app).get(`/api/transactions/summary/`);
     expect(res.status).toBe(404);
   });
+
+  test("Get recent transactions success", async () => {
+    const res = await request(app).get(`/api/transactions/recent/${user.id}`);
+    expect(res.status).toBe(200);
+    expect(Array.isArray(res.body)).toBe(true);
+  });
+
+  test("Get recent fail - missing user id", async () => {
+    const res = await request(app).get(`/api/transactions/recent/`);
+    expect(res.status).toBe(404);
+  });
+
+  test("Delete transaction success", async () => {
+    const res = await request(app)
+      .delete(`/api/transactions/${transactionId}`)
+      .send({ user_id: user.id });
+    expect(res.status).toBe(200);
+    expect(res.body.message).toBe("Transaction deleted successfully");
+  });
+
+  test("Update fail missing user_id", async () => {
+    const res = await request(app)
+      .put(`/api/transactions/${transactionId}`)
+      .send({
+        title: "Will Fail",
+      });
+    expect(res.status).toBe(400);
+  });
 });
