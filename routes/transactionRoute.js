@@ -7,16 +7,16 @@ import {
   update,
 } from "../controllers/transactionController.js";
 
+import { verifyToken } from "../middlewares/verifyToken.js";
+
 const router = express.Router();
 
+router.use(verifyToken);
+
 router.post("/", create);
-
 router.get("/summary/:user_id", getSummary);
-
 router.get("/recent/:user_id", getRecent);
-
 router.delete("/:id", deleteOne);
-
 router.put("/:id", update);
 
 export default router;

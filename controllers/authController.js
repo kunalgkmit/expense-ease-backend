@@ -5,7 +5,7 @@ const generateAccessToken = async (user) => {
     const token = jwt.sign(
       { username: user.usename },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: "20m" }
+      { expiresIn: "10d" }
     );
 
     return token;

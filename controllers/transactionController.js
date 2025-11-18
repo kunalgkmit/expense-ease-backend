@@ -95,7 +95,11 @@ export const getRecent = async (req, res) => {
       return res.status(400).json({ message: "user_id is required" });
     }
 
-    const transactions = await Transaction.findAll({
+    const page = parseInt(req.query.page) || 1;
+    const limit = 4;
+    const offset = (page - 1) * limit;
+
+    const { count, rows } = await Transaction.findAndCountAll({
       where: { user_id, deletedAt: null },
       attributes: [
         "id",
@@ -105,10 +109,18 @@ export const getRecent = async (req, res) => {
         ["createdAt", "created_at"],
       ],
       order: [["createdAt", "DESC"]],
+      offset: offset,
+      limit: limit,
       raw: true,
     });
 
-    return res.status(200).json(transactions);
+    return res.status(200).json({
+      data: rows,
+      page: page,
+      limit: limit,
+      totalEntries: count,
+      totalPages: Math.ceil(count / limit),
+    });
   } catch (error) {
     return res
       .status(500)
