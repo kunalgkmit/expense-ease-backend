@@ -8,12 +8,12 @@ module.exports = {
     port: process.env.DB_PORT || 5432,
     host: process.env.DB_HOST,
     dialect: process.env.DB_DIALECT,
-    dialectOptions: {
-      ssl: {
-        require: true, 
-        rejectUnauthorized: false, 
-      },
-    },
+    // dialectOptions: {
+    //   ssl: {
+    //     require: true,
+    //     rejectUnauthorized: false,
+    //   },
+    // },
     logging: console.log,
   },
   test: {

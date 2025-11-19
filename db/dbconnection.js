@@ -19,7 +19,9 @@ export const dbConnection = async (database, username, password) => {
   });
 
   try {
+    console.log("I am hhere v1");
     await sequelize.authenticate();
+    console.log("I am hhere v2");
 
     Role = createRoleModel(sequelize);
     User = createUserModel(sequelize);
@@ -31,6 +33,7 @@ export const dbConnection = async (database, username, password) => {
 
     return { sequelize, User, Role, Transaction };
   } catch (error) {
+    console.log(error);
     process.exit(1);
   }
 };
