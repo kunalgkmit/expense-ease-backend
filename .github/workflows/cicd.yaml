@@ -1,0 +1,40 @@
+name: Deploy Expense-Ease
+
+on:
+  # push:
+  #   branches: [ dev ]
+  workflow_dispatch:
+    
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm i
+
+    - name: Run tests
+      run: npm test
+
+    - name: Deploy to production server
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.BACKEND_HOST }}
+        username: ${{ secrets.BACKEND_USERNAME }}
+        key: ${{ secrets.BACKEND_PRIVATE_KEY }}
+        script: |
+          cd ~/expense-ease-backend
+          git pull origin dev
+          npm i
+          npx sequelize-cli db:migrate --config config/config.cjs
+          pm2 restart expenseease
+          pm2 save
