@@ -3,17 +3,18 @@ import path from "path";
 import { Sequelize, DataTypes } from "sequelize";
 import process from "process";
 import { fileURLToPath } from "url";
+import { createRequire } from "module";
 
-import createUserModel from "./user.js";
-import createRoleModel from "./role.js";
-import createTransactionModel from "./transaction.js";
+import createUserModel from "./User.js";
+import createRoleModel from "./Role.js";
+import createTransactionModel from "./Transaction.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const configPath = path.join(__dirname, "../config/config.json");
-const rawConfig = fs.readFileSync(configPath);
-const configData = JSON.parse(rawConfig);
+const require = createRequire(import.meta.url);
+const configPath = path.join(__dirname, "../config/config.cjs");
+const configData = require(configPath);
 
 const env = process.env.NODE_ENV || "development";
 const config = configData[env];
@@ -28,9 +29,5 @@ const sequelize = new Sequelize(
 const Role = createRoleModel(sequelize);
 const User = createUserModel(sequelize);
 const Transaction = createTransactionModel(sequelize);
-
-if (Role.associate) Role.associate({ User, Transaction });
-if (User.associate) User.associate({ Role, Transaction });
-if (Transaction.associate) Transaction.associate({ User });
 
 export default { sequelize, Sequelize, Role, User, Transaction };

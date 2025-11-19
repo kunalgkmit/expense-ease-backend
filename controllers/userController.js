@@ -2,7 +2,7 @@ import db from "../models/index.js";
 import express from "express";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { generateAccessToken, generateRefreshToken } from "./auth/authController.js";
+import { generateAccessToken, generateRefreshToken } from "./authController.js";
 import { response } from "express";
 
 const { User } = db;
@@ -104,19 +104,23 @@ export const refresh = async (req, res) => {
         .json({ message: "User not found or invalid token" });
     }
 
-    jwt.verify(refreshToken, "cdef", async (error, decoded) => {
-      if (error) {
-        return res
-          .status(403)
-          .json({ message: "Invalid or expired refresh token" });
-      }
-      const newAccessToken = await generateAccessToken(user.dataValues);
+    jwt.verify(
+      refreshToken,
+      process.env.REFRESH_TOKEN_SECRET,
+      async (error, decoded) => {
+        if (error) {
+          return res
+            .status(403)
+            .json({ message: "Invalid or expired refresh token" });
+        }
+        const newAccessToken = await generateAccessToken(user.dataValues);
 
-      return res.status(200).json({
-        message: "Access token refreshed successfully",
-        accessToken: newAccessToken,
-      });
-    });
+        return res.status(200).json({
+          message: "Access token refreshed successfully",
+          accessToken: newAccessToken,
+        });
+      }
+    );
   } catch (error) {
     return res.status(500).json({ message: "Internal Server Error" });
   }
