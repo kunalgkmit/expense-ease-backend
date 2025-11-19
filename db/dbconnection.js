@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
-import createUserModel from "../models/user.js";
-import createRoleModel from "../models/role.js";
-import createTransactionModel from "../models/transaction.js";
+import createUserModel from "../models/User.js";
+import createRoleModel from "../models/Role.js";
+import createTransactionModel from "../models/Transaction.js";
 import dotenv from "dotenv";
 
 dotenv.config();
