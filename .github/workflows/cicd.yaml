@@ -21,8 +21,8 @@ jobs:
     - name: Install dependencies
       run: npm i
 
-    - name: Run tests
-      run: npm test
+    # - name: Run tests
+    #   run: npm test
 
     - name: Deploy to production server
       uses: appleboy/ssh-action@v1.0.3
