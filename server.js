@@ -40,7 +40,7 @@ if (process.env.NODE_ENV !== "test") {
 
       global.models = { User, Role };
 
-      app.listen(PORT, "0.0.0.0", () => {
+      app.listen(PORT, process.env.DB_HOST, () => {
         console.log(`Server running on port ${PORT}`);
       });
     } catch (error) {
