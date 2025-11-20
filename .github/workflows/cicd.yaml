@@ -13,16 +13,25 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '22'
+    # - name: Setup Node.js
+    #   uses: actions/setup-node@v4
+    #   with:
+    #     node-version: '22'
 
-    - name: Install dependencies
-      run: npm i
+    # - name: Install dependencies
+    #   run: npm i
 
     # - name: Run tests
     #   run: npm test
+
+    - name: Test on production server
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.BACKEND_HOST }}
+        username: ${{ secrets.BACKEND_USERNAME }}
+        key: ${{ secrets.BACKEND_PRIVATE_KEY }}
+        script: |
+          ~/test-expense-ease-backend.sh
 
     - name: Deploy to production server
       uses: appleboy/ssh-action@v1.0.3

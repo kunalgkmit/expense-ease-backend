@@ -9,7 +9,7 @@
     "db:migrate": "npx sequelize-cli db:migrate --config config/config.cjs",
     "db:seed": "npx sequelize-cli db:seed:all --config config/config.cjs",
     "db:undo": "npx sequelize-cli db:migrate:undo",
-    "test": "vitest"
+    "test": "vitest --run"
   },
   "keywords": [],
   "author": "",
