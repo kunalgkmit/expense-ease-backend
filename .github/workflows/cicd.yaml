@@ -1,0 +1,30 @@
+name: Deploy Expense-Ease
+
+on:
+  push:
+    branches: [ dev ]
+  workflow_dispatch:
+    
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Test on production server
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.BACKEND_HOST }}
+        username: ${{ secrets.BACKEND_USERNAME }}
+        key: ${{ secrets.BACKEND_PRIVATE_KEY }}
+        script: |
+          ~/test-expense-ease-backend.sh
+
+    - name: Deploy to production server
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.BACKEND_HOST }}
+        username: ${{ secrets.BACKEND_USERNAME }}
+        key: ${{ secrets.BACKEND_PRIVATE_KEY }}
+        script: |
+          ~/start-expense-ease-backend.sh
